@@ -18,4 +18,10 @@ export type PokemonType = {
     };
 };
 
+export type PokemonData = {
+  id: number;
+  posX: number;
+  posY: number;
+};
+
 

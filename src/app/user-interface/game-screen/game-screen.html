@@ -1,5 +1,8 @@
-<div class="container">
-    @for(p of finalPokemonSet; track p.id){
-        <app-pokemon-cell [pokemon] = "p"></app-pokemon-cell>
-    }
+<div class="game-container" (click)="handleClick($event)">
+    <div class="pokemon-canva">
+        @for(p of finalPokemonSetSignal(); track p.id){
+            <app-pokemon-cell [pokemon] = "p" (positionChange)="onPokemonPositionChange($event)"></app-pokemon-cell>
+        }
+    </div>
+    
 </div>

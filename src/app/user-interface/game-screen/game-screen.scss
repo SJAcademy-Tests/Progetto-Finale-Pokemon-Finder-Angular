@@ -1,9 +1,14 @@
-.container {
-  display: grid;
-  grid-template-columns: repeat(10, auto);
-  grid-auto-rows: auto;
-  gap: 4px;
+.game-container {
+  flex: 1; // occupa tutto lo spazio rimasto
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  margin: 0 auto;       // per centrarlo
-  width: fit-content;   // <--- questo fa adattare il div al contenuto
+  .pokemon-canva {
+    padding-right: 80px;
+    padding-bottom: 75px;
+    display: grid;
+    gap: 0;
+    grid-template-columns: repeat(30, 30px); // corretto
+  }
 }

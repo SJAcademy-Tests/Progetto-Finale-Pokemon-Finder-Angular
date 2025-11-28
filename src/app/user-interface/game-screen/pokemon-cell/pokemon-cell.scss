@@ -1,0 +1,9 @@
+$cellSize: 30px;
+
+.cell {
+  width: $cellSize;
+  height: $cellSize;
+  :hover{
+    cursor: pointer;
+  }
+}

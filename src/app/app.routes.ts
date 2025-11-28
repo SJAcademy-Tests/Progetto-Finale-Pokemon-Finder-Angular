@@ -4,6 +4,10 @@ import { HighScore } from './high-score/high-score';
 
 export const routes: Routes = [
     {
+        path: "",
+        component: UserInterface
+    },
+    {
         path:"home",
         component: UserInterface,
     },
