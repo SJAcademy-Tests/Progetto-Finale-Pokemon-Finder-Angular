@@ -1,1 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: 'Pokemon';
+  src: url('/assets/fonts/Pokemon_Solid_Normal.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+a{
+    text-decoration: none;
+}

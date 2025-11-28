@@ -1,0 +1,19 @@
+.nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to right, rgb(247, 77, 77) 0%, yellow);
+  font-weight: bold;
+  transition: all 0.3s ease;
+  gap: 24px;
+  font-size: 32px;
+  a {
+    text-decoration: none;
+    color: white;
+
+    &:hover,
+    &.active {
+      color: rgb(117, 28, 28);
+    }
+  }
+}

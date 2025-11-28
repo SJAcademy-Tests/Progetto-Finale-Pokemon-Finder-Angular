@@ -1,0 +1,5 @@
+<div class="container">
+    @for(p of finalPokemonSet; track p.id){
+        <app-pokemon-cell [pokemon] = "p"></app-pokemon-cell>
+    }
+</div>

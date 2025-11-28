@@ -1,0 +1,9 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(10, auto);
+  grid-auto-rows: auto;
+  gap: 4px;
+
+  margin: 0 auto;       // per centrarlo
+  width: fit-content;   // <--- questo fa adattare il div al contenuto
+}
