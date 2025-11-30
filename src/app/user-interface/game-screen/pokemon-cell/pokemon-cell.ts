@@ -3,11 +3,11 @@ import { PokemonData } from '../game-screen';
 
 @Component({
   selector: 'app-pokemon-cell',
-  imports: [],
   templateUrl: './pokemon-cell.html',
-  styleUrl: './pokemon-cell.scss',
+  styleUrls: ['./pokemon-cell.scss'],
 })
 export class PokemonCell implements AfterViewInit {
+
   @Input() pokemon: PokemonData = {
     id: 1,
     posX: 0,
@@ -19,14 +19,17 @@ export class PokemonCell implements AfterViewInit {
   constructor(private elRef: ElementRef) {}
 
   ngAfterViewInit() {
-    // appena il componente è renderizzato, aggiorna la posizione
+    // aggiorna UNA sola volta dopo il render
     this.updatePosition();
   }
 
   updatePosition() {
     const rect = this.elRef.nativeElement.getBoundingClientRect();
-    this.pokemon.posX = rect.left + 140;
-    this.pokemon.posY = rect.top + 30;
+
+
+    this.pokemon.posX = rect.left
+    this.pokemon.posY = rect.top
+    //console.log(this.pokemon.posX, this.pokemon.posY)
     this.positionChange.emit({ ...this.pokemon });
   }
 }

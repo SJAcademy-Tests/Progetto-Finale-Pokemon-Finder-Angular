@@ -1,18 +1,14 @@
 <div class="container">
     @if(selectedPokemonId){
-    <app-pokemon-details class="col-2 col-md-1" [id]="selectedPokemonId" [posX]="selectedPokemonPosX"
+    <app-pokemon-details [id]="selectedPokemonId" [posX]="selectedPokemonPosX"
         [posY]="selectedPokemonPosY"></app-pokemon-details>
     }
 
-    <div class="vh-100 d-flex justify-content-center align-items-center">
+    <div >
         <div class="row w-100">
-            <!-- Margine sinistro -->
-
-            <!-- Canvas centrale -->
-            <app-game-screen class="col-8 col-md-10 d-flex justify-content-center"
+            <app-game-screen 
                 (randomPokemon)="onRandomPokemon($event)"></app-game-screen>
-            <!-- Margine destro -->
-            <div class="col-2 col-md-1"></div>
+
         </div>
     </div>
 </div>
