@@ -8,9 +8,6 @@ export class GameStore {
   // DETAILS HEIGHT
   detailsHeight = signal<number>(0);
 
-  // ALTRI DATI (es. lista pokémon)
-  pokemons = signal<any[]>([]);
-
   updateNavbarHeight(h: number) {
     this.navbarHeight.set(h);
   }

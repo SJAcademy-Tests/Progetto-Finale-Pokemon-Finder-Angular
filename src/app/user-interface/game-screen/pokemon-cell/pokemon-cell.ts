@@ -16,7 +16,7 @@ export class PokemonCell implements AfterViewInit {
 
   @Output() positionChange = new EventEmitter<PokemonData>();
 
-  constructor(private elRef: ElementRef) {}
+  constructor(public elRef: ElementRef) {}
 
   ngAfterViewInit() {
     // aggiorna UNA sola volta dopo il render

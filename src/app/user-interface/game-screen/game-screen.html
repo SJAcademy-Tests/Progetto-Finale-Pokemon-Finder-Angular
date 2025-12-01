@@ -1,16 +1,15 @@
 <div class="game-container" (click)="handleClick($event)">
-  <div class="pokemon-canva">
+  @if(flashSignal()){
+    <div class="flash-overlay" ></div>
+  }
+  
+  <div class="pokemon-canva" [style.gridTemplateColumns]="'repeat(' + Colonne + ', 30px)'">
     @for(p of finalPokemonSetSignal(); track p.id){
     <app-pokemon-cell
+      #pokemonCell
       [pokemon]="p"
       (positionChange)="onPokemonPositionChange($event)"
     ></app-pokemon-cell>
     }
   </div>
 </div>
-<!-- <div>
-  <p>Width: {{ width() }}</p>
-  <p>Height: {{ height() }}</p>
-  <p>Width Diff: {{ widthDiff() }}</p>
-  <p>Height Iniziale: {{ heightDiff() }}</p>
-</div> -->

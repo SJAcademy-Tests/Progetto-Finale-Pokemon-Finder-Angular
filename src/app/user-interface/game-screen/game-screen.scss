@@ -1,16 +1,28 @@
-$col-number: 10;
+$col-number: 20;
 
 .game-container {
   flex: 1; // occupa tutto lo spazio rimasto
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: relative;
+
 
   .pokemon-canva {
     padding-right: 80px;
     padding-bottom: 75px;
     display: grid;
     gap: 0;
-    grid-template-columns: repeat($col-number, 30px); // corretto
   }
+
+  .flash-overlay {
+    position: absolute;
+    inset: 0;
+    background: white;
+    pointer-events: none;
+    animation: flash 260ms ease-out;
+  }
+}
+
+@keyframes flash {
+  0% { opacity: 0; }
+  20% { opacity: 0.95; }
+  100% { opacity: 0; }
 }

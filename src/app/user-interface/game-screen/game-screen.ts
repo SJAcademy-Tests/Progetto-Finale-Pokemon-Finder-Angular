@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, signal, effect, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter, signal, effect, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { PokemonCell } from './pokemon-cell/pokemon-cell';
 import { ScreenService } from '../../../service/screen-service';
 import { GameStore } from '../../../service/game-store';
@@ -12,29 +12,25 @@ export type PokemonData = { id: number; posX: number; posY: number };
   styleUrls: ['./game-screen.scss'],
 })
 export class GameScreen implements OnInit {
+  @ViewChildren(PokemonCell) pokemonCells!: QueryList<PokemonCell>;
   finalPokemonSetSignal = signal<PokemonData[]>([]);
   randomPokemonSignal = signal<PokemonData | null>(null);
   selectedPokemonFinalPos = signal<{ x: number; y: number } | null>(null);
-
+  flashSignal = signal(false);
   screenWidth = signal(0);
   screenHeight = signal(0);
 
   @Output() randomPokemon = new EventEmitter<PokemonData>();
 
   constructor(private store: GameStore, private screenService: ScreenService) {
-    // 🔹 Scegli Pokémon casuale quando array pronto
     effect(() => {
       const array = this.finalPokemonSetSignal();
-      if (array.length > 0 && this.randomPokemonSignal() == null) {
-        const randomIndex = Math.floor(Math.random() * array.length);
-        const pokemon = array[randomIndex];
-        this.randomPokemonSignal.set(pokemon);
-        this.randomPokemon.emit(pokemon);
+      // aspetta che l'array sia popolato e che almeno una posizione sia stata calcolata
+      const positionsReady = array.length > 0 && array.some((p) => p.posX !== 0 || p.posY !== 0);
+      if (positionsReady && this.randomPokemonSignal() == null) {
+        this.pickRandomPokemon();
       }
-    });
 
-    // 🔹 Aggiorna posizione finale Pokémon selezionato
-    effect(() => {
       const selected = this.randomPokemonSignal();
       if (!selected) return;
 
@@ -42,17 +38,18 @@ export class GameScreen implements OnInit {
       const detailsHeight = this.store.detailsHeight();
       if (navbarHeight === 0 || detailsHeight === 0) return;
 
-      const data = this.finalPokemonSetSignal().find(p => p.id === selected.id);
+      const data = this.finalPokemonSetSignal().find((p) => p.id === selected.id);
+
       if (!data) return;
 
       this.selectedPokemonFinalPos.set({
         x: data.posX,
         y: data.posY + navbarHeight + detailsHeight,
       });
+      console.log('prova', this.selectedPokemonFinalPos());
     });
 
-    // 🔹 Gestione resize (senza takeUntilDestroyed)
-    screenService.screenSize$.subscribe(size => {
+    /* screenService.screenSize$.subscribe(size => {
       this.screenWidth.set(size.width);
       this.screenHeight.set(size.height);
 
@@ -62,7 +59,6 @@ export class GameScreen implements OnInit {
 
       const navbarHeight = this.store.navbarHeight();
       const detailsHeight = this.store.detailsHeight();
-      console.log(detailsHeight)
       const data = this.finalPokemonSetSignal().find(p => p.id === selected.id);
       if (!data) return;
 
@@ -70,41 +66,125 @@ export class GameScreen implements OnInit {
         x: data.posX + 40,
         y: data.posY + navbarHeight + detailsHeight,
       });
-    });
+    }); */
   }
 
   ngOnInit() {
     this.updatePokemonArray();
   }
+  MaxPokemonID = 1000;
+  PokemonDaTrovare = 50;
+  Colonne = this.PokemonDaTrovare / 10;
 
   updatePokemonArray() {
-    const allPokemonIds = Array.from({ length: 1000 }, (_, i) => i + 1);
+    const allPokemonIds = Array.from({ length: this.MaxPokemonID }, (_, i) => i + 1);
     const shuffled = allPokemonIds.sort(() => Math.random() - 0.5);
     const newArray: PokemonData[] = shuffled
-      .slice(0, 100)
-      .map(id => ({ id, posX: 0, posY: 0 }));
+      .slice(0, this.PokemonDaTrovare)
+      .map((id) => ({ id, posX: 0, posY: 0 }));
     this.finalPokemonSetSignal.set(newArray);
   }
 
   onPokemonPositionChange(updated: PokemonData) {
-    this.finalPokemonSetSignal.update(arr =>
-      arr.map(p => (p.id === updated.id ? updated : p))
-    );
+    this.finalPokemonSetSignal.update((arr) => arr.map((p) => (p.id === updated.id ? updated : p)));
+
+    // If the updated pokemon is the currently selected one, update final pos immediately
+    const selected = this.randomPokemonSignal();
+    if (selected && selected.id === updated.id) {
+      const navbarHeight = this.store.navbarHeight();
+      const detailsHeight = this.store.detailsHeight();
+      this.selectedPokemonFinalPos.set({
+        x: updated.posX + 40,
+        y: updated.posY + navbarHeight + detailsHeight,
+      });
+      console.log('Updated selectedPokemonFinalPos from positionChange:', this.selectedPokemonFinalPos());
+    }
   }
 
   handleClick(event: MouseEvent) {
-    const selectedFinal = this.selectedPokemonFinalPos();
-    if (!selectedFinal) return;
+    // Prefer the precomputed final position signal
+    let targetX: number | null = null;
+    let targetY: number | null = null;
 
-    const dx = Math.abs(event.clientX  - selectedFinal.x);
-    const dy = Math.abs(event.clientY - selectedFinal.y);
+    const selectedFinal = this.selectedPokemonFinalPos();
+    if (selectedFinal) {
+      targetX = selectedFinal.x;
+      targetY = selectedFinal.y;
+    } else {
+      // If signal not ready, try to read the real DOM element for the selected pokemon
+      const selected = this.randomPokemonSignal();
+      if (selected) {
+        // Prefer getting the element via ViewChildren (safer than querySelector)
+        const cell = this.pokemonCells?.find?.((c) => c.pokemon?.id === selected.id);
+        if (cell?.elRef?.nativeElement) {
+          const rect = cell.elRef.nativeElement.getBoundingClientRect();
+          // use element center (already viewport coordinates)
+          targetX = rect.left + rect.width / 2;
+          targetY = rect.top + rect.height / 2;
+          console.log('Computed target from PokemonCell element rect:', targetX, targetY);
+        } else {
+          // fallback to reading stored data (may be stale)
+          const data = this.finalPokemonSetSignal().find((p) => p.id === selected.id);
+          if (data) {
+            const navbarHeight = this.store.navbarHeight();
+            const detailsHeight = this.store.detailsHeight();
+            targetX = data.posX + 40;
+            targetY = data.posY + navbarHeight + detailsHeight;
+            console.log('Computed target from stored data fallback:', targetX, targetY);
+          }
+        }
+      }
+    }
+
+    if (targetX === null || targetY === null) return;
+
+    const dx = Math.abs(event.clientX - targetX);
+    const dy = Math.abs(event.clientY - targetY);
     const tolerance = 70;
 
-    console.log('Click dx/dy:', event.clientX, event.clientY);
-    console.log('Pokemon posizione finale:', selectedFinal.x, selectedFinal.y);
+    console.log('Click client coords:', event.clientX, event.clientY);
+    console.log('Pokemon posizione finale (target):', targetX, targetY);
 
     if (dx <= tolerance && dy <= tolerance) {
-      alert(`Hai trovato il Pokémon ${this.randomPokemonSignal()?.id}!`);
+      const foundId = this.randomPokemonSignal()?.id;
+      // show flash and select a new pokemon
+      this.flashSignal.set(true);
+      setTimeout(() => {
+        this.flashSignal.set(false);
+      }, 240);
+      this.selectNewPokemonAfterFound(foundId ?? null);
     }
+  }
+
+  private selectNewPokemonAfterFound(foundId: number | null) {
+    this.randomPokemonSignal.set(null);
+    this.pickRandomPokemon();
+  }
+
+  private pickRandomPokemon() {
+    const array = this.finalPokemonSetSignal();
+    const positionsReady = array.length > 0 && array.some((p) => p.posX !== 0 || p.posY !== 0);
+    if (!positionsReady) {
+      // l'effect già presente si occuperà di selezionare quando le posizioni saranno pronte
+      return;
+    }
+
+    // scegli un nuovo indice diverso dall'attuale (se possibile)
+    const current = this.randomPokemonSignal();
+    if (array.length === 0) return;
+
+    let randomIndex = Math.floor(Math.random() * array.length);
+    // evita scegliere lo stesso pokemon appena trovato quando possibile
+    if (current && array.length > 1) {
+      let attempts = 0;
+      while (array[randomIndex].id === current.id && attempts < 10) {
+        randomIndex = Math.floor(Math.random() * array.length);
+        attempts++;
+      }
+    }
+
+    const pokemon = array[randomIndex];
+    this.randomPokemonSignal.set(pokemon);
+    this.randomPokemon.emit(pokemon);
   }
 }
