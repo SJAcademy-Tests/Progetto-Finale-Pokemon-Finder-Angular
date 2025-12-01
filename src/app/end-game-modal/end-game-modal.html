@@ -1,1 +1,9 @@
-<p>end-game-modal works!</p>
+<div class="end-game-modal">
+  <div class="modal-content">
+    <h2>Game Over!</h2>
+    <p>Hai catturato {{ store.pokemonCounter() }} Pokemon!</p>
+
+    <button class="modal-button mb-2" (click)="handleClick()">Gioca Ancora</button>
+    <a class="modal-button" routerLink="/score">Leaderboard</a>
+  </div>
+</div>

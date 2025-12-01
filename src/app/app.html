@@ -1,8 +1,13 @@
 <div class="page">
+  @if(!store.name()){
+  <app-new-player-modal></app-new-player-modal>
+  }@else{
+
   <main class="content">
-    <app-nav-bar></app-nav-bar>
+    <app-nav-bar class="sticky-top"></app-nav-bar>
     <router-outlet></router-outlet>
   </main>
 
-  <app-footer></app-footer>
+  }
+  <app-footer class="sticky-bottom"></app-footer>
 </div>

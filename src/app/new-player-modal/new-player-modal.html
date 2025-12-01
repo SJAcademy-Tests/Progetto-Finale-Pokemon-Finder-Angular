@@ -1,0 +1,9 @@
+<div class="name-modal">
+  <div class="modal-content">
+    <h3>Inserisci il tuo nome</h3>
+    <form (ngSubmit)="submitName()">
+      <input type="text" placeholder="Il tuo nome" [(ngModel)]="playerName" name="name" required>
+      <button type="submit">Invia</button>
+    </form>
+  </div>
+</div>

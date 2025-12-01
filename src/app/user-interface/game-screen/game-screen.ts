@@ -1,4 +1,13 @@
-import { Component, Output, EventEmitter, signal, effect, OnInit, ViewChildren, QueryList } from '@angular/core';
+import {
+  Component,
+  Output,
+  EventEmitter,
+  signal,
+  effect,
+  OnInit,
+  ViewChildren,
+  QueryList,
+} from '@angular/core';
 import { PokemonCell } from './pokemon-cell/pokemon-cell';
 import { ScreenService } from '../../../service/screen-service';
 import { GameStore } from '../../../service/game-store';
@@ -73,7 +82,7 @@ export class GameScreen implements OnInit {
     this.updatePokemonArray();
   }
   MaxPokemonID = 1000;
-  PokemonDaTrovare = 50;
+  PokemonDaTrovare = 200;
   Colonne = this.PokemonDaTrovare / 10;
 
   updatePokemonArray() {
@@ -97,7 +106,10 @@ export class GameScreen implements OnInit {
         x: updated.posX + 40,
         y: updated.posY + navbarHeight + detailsHeight,
       });
-      console.log('Updated selectedPokemonFinalPos from positionChange:', this.selectedPokemonFinalPos());
+      console.log(
+        'Updated selectedPokemonFinalPos from positionChange:',
+        this.selectedPokemonFinalPos()
+      );
     }
   }
 
@@ -121,7 +133,6 @@ export class GameScreen implements OnInit {
           // use element center (already viewport coordinates)
           targetX = rect.left + rect.width / 2;
           targetY = rect.top + rect.height / 2;
-          console.log('Computed target from PokemonCell element rect:', targetX, targetY);
         } else {
           // fallback to reading stored data (may be stale)
           const data = this.finalPokemonSetSignal().find((p) => p.id === selected.id);
@@ -130,7 +141,6 @@ export class GameScreen implements OnInit {
             const detailsHeight = this.store.detailsHeight();
             targetX = data.posX + 40;
             targetY = data.posY + navbarHeight + detailsHeight;
-            console.log('Computed target from stored data fallback:', targetX, targetY);
           }
         }
       }
@@ -142,9 +152,6 @@ export class GameScreen implements OnInit {
     const dy = Math.abs(event.clientY - targetY);
     const tolerance = 70;
 
-    console.log('Click client coords:', event.clientX, event.clientY);
-    console.log('Pokemon posizione finale (target):', targetX, targetY);
-
     if (dx <= tolerance && dy <= tolerance) {
       const foundId = this.randomPokemonSignal()?.id;
       // show flash and select a new pokemon
@@ -153,6 +160,9 @@ export class GameScreen implements OnInit {
         this.flashSignal.set(false);
       }, 240);
       this.selectNewPokemonAfterFound(foundId ?? null);
+      this.store.updateCounter();
+    } else {
+      this.store.updateTimerOnError();
     }
   }
 

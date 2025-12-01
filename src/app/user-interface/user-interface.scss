@@ -1,6 +1,28 @@
-.container{
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+  .game-container {
+    width: 100%;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-around; // distribuisce i tre elementi
     align-items: center;
+
+    .game-screen {     // larghezza fissa
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .counter{
+      position: relative;
+      right: 200px
+    }
+    .timer{
+      position: relative;
+      left: 200px
+    }
+  }
 }

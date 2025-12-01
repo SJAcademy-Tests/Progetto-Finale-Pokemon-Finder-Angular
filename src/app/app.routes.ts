@@ -8,11 +8,9 @@ export const routes: Routes = [
         component: UserInterface
     },
     {
-        path:"home",
-        component: UserInterface,
-    },
-    {
         path:"score",
         component: HighScore,
     }
+
+
 ];

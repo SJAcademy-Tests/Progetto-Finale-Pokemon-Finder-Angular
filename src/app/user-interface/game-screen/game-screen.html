@@ -3,7 +3,7 @@
     <div class="flash-overlay" ></div>
   }
   
-  <div class="pokemon-canva" [style.gridTemplateColumns]="'repeat(' + Colonne + ', 30px)'">
+  <div class="pokemon-canva" [style.gridTemplateColumns]="'repeat(' + Colonne + ', 35px)'">
     @for(p of finalPokemonSetSignal(); track p.id){
     <app-pokemon-cell
       #pokemonCell

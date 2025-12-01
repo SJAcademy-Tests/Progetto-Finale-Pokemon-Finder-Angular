@@ -1,12 +1,10 @@
-$col-number: 20;
-
 .game-container {
   flex: 1; // occupa tutto lo spazio rimasto
   position: relative;
 
 
   .pokemon-canva {
-    padding-right: 80px;
+    padding-right: 70px;
     padding-bottom: 75px;
     display: grid;
     gap: 0;

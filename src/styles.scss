@@ -1,9 +1,12 @@
 @font-face {
-  font-family: 'Pokemon';
-  src: url('/assets/fonts/Pokemon_Solid_Normal.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'Pokemon Solid';
+    src: url('assets/fonts/PokemonSolidNormal.woff2') format('woff2'),
+        url('assets/fonts/PokemonSolidNormal.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
 }
+
 
 @import 'bootstrap/dist/css/bootstrap.min.css';
 

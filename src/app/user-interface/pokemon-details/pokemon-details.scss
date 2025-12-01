@@ -1,8 +1,12 @@
-.card{
-    margin-top: 24px;
-    margin-bottom: 64px;
-    .pokemon-img{
+.card {
+  margin-top: 24px;
+  margin-bottom: 64px;
+  h2 {
+    font-family: 'Pokemon Solid', Arial, sans-serif;
+    color: #3b4cca;
+  }
+  .pokemon-img {
     width: 96px;
     align-self: center;
-}
+  }
 }
