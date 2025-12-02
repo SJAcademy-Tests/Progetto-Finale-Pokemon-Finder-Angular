@@ -1,14 +1,13 @@
 .pokemon-counter-card {
-  width: 18rem; /* larghezza fissa */
-  background: linear-gradient(to right, #f74d4d, #ffdc00); /* rosso → giallo */
-  color: #3B4CCA; /* testo bianco */
+  width: 18rem;
+  background: linear-gradient(to right, #f74d4d, #ffdc00);
+  color: #3B4CCA;
   border-radius: 12px;
   padding: 1rem;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
   margin-bottom: 1rem;
   text-align: center;
-  font-family: 'Pokemon Solid', Arial, sans-serif; /* se vuoi font stile Pokémon */
-  border: 2px solid #fff; /* bordo bianco per effetto cartone */
+  border: 2px solid #fff;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 

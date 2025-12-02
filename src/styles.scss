@@ -5,6 +5,7 @@
     font-weight: normal;
     font-style: normal;
     font-display: swap;
+    
 }
 
 
@@ -12,4 +13,20 @@
 
 a{
     text-decoration: none;
+}
+
+/* App global font + fallback chain. Use the CSS variable in components if needed. */
+:root {
+    --app-font: 'Pokemon Solid', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+html, body {
+    height: 100%;
+    font-family: var(--app-font);
+    letter-spacing: 2.5px;
+}
+
+/* Utility: a class you can apply when you need to override/back to system font */
+.use-system-font {
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
 }

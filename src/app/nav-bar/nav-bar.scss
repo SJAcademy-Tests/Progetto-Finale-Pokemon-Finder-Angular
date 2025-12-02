@@ -6,7 +6,10 @@
   font-weight: bold;
   transition: all 0.3s ease;
   gap: 24px;
-  font-size: 32px;
+  font-size: 24px;
+  font-family: 'Pokemon Solid', Arial, sans-serif; /* se vuoi font stile Pokémon */
+  letter-spacing: 2.5px;
+  height: 3rem;
 
   a {
     text-decoration: none;
@@ -14,7 +17,7 @@
 
     &:hover,
     &.active {
-      color: rgb(117, 28, 28);
+      color: #3B4CCA;
     }
   }
 }
