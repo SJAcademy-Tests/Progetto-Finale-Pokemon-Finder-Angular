@@ -37,7 +37,7 @@ export class GameScreen implements OnInit {
       // aspetta che l'array sia popolato e che almeno una posizione sia stata calcolata
       const positionsReady = array.length > 0 && array.some((p) => p.posX !== 0 || p.posY !== 0);
       if (positionsReady && this.randomPokemonSignal() == null) {
-        this.pickRandomPokemon();
+        this.pickRandomPokemon(null);
       }
 
       const selected = this.randomPokemonSignal();
@@ -167,11 +167,12 @@ export class GameScreen implements OnInit {
   }
 
   private selectNewPokemonAfterFound(foundId: number | null) {
+    const prevSignal = this.randomPokemonSignal()
     this.randomPokemonSignal.set(null);
-    this.pickRandomPokemon();
+    this.pickRandomPokemon(prevSignal);
   }
 
-  private pickRandomPokemon() {
+  private pickRandomPokemon(current : any) {
     const array = this.finalPokemonSetSignal();
     const positionsReady = array.length > 0 && array.some((p) => p.posX !== 0 || p.posY !== 0);
     if (!positionsReady) {
@@ -180,7 +181,6 @@ export class GameScreen implements OnInit {
     }
 
     // scegli un nuovo indice diverso dall'attuale (se possibile)
-    const current = this.randomPokemonSignal();
     if (array.length === 0) return;
 
     let randomIndex = Math.floor(Math.random() * array.length);
