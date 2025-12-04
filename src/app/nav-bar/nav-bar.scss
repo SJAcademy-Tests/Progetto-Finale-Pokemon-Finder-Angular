@@ -10,10 +10,11 @@
   letter-spacing: 2.5px;
   height: 3rem;
   padding: 0 1rem;
-  color: #3B4CCA;
+  color: #3b4cca;
+
   .left {
     position: relative;
-    z-index: 2; // evita che sia coperto
+    z-index: 2;
   }
 
   .center {
@@ -22,15 +23,51 @@
     transform: translateX(-50%);
     display: flex;
     gap: 1rem;
+    margin-bottom: 16px;
   }
 
   a {
     text-decoration: none;
-    
 
     &:hover,
     &.active {
-      color: #3B4CCA;
+      color: #3b4cca;
+    }
+  }
+
+  /* ================================
+     📱 MOBILE (XSmall < 600px)
+  =================================*/
+  @media (max-width: 599px) {
+    font-size: 16px;
+    height: 2.5rem;
+
+    .center {
+      gap: 0.5rem;
+    }
+  }
+
+  /* ================================
+     📱📲 SMALL TABLET (600–959px)
+  =================================*/
+  @media (min-width: 600px) and (max-width: 959px) {
+    font-size: 18px;
+    height: 2.8rem;
+
+    .center {
+      gap: 0.75rem;
+    }
+  }
+
+  /* ================================
+     💻 DESKTOP (≥ 960px)
+  =================================*/
+  @media (min-width: 960px) {
+    font-size: 24px;
+    height: 3rem;
+
+    .center {
+      gap: 1rem;
     }
   }
 }

@@ -2,7 +2,6 @@ import { Component, ElementRef, AfterViewInit, ViewChild } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ComponentSize } from '../../service/component-size';
 import { GameStore } from '../../service/game-store';
-import { CapitalizePipe } from "../../utils/capitalize-pipe";
 
 @Component({
   selector: 'app-nav-bar',
@@ -26,13 +25,11 @@ export class NavBar implements AfterViewInit {
     const rect = el.getBoundingClientRect();
     if (rect.height > 0) {
       this.store.updateNavbarHeight(rect.height);
-      //console.log("Navbar initial height:", rect.height);
     }
 
     this.size.observeSize(el, (rect: DOMRectReadOnly) => {
       if (rect.height > 0) {
         this.store.updateNavbarHeight(rect.height);
-        //console.log("Navbar updated height:", rect.height);
       }
     });
   }

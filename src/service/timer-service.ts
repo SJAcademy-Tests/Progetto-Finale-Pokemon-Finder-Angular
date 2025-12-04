@@ -13,10 +13,7 @@ export class TimerService {
 
   startTimer() {
     // STOP vecchio timer prima di crearne uno nuovo
-    if (this.intervalId) {
-      clearInterval(this.intervalId);
-      this.intervalId = null;
-    }
+    this.stopTimer();
 
     this.intervalId = setInterval(() => {
       this.updateTimer();
