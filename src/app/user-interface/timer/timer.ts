@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { GameStore } from '../../../service/game-store';
+import { TimerService } from '../../../service/timer-service';
 
 @Component({
   selector: 'app-timer',
@@ -10,17 +11,10 @@ import { GameStore } from '../../../service/game-store';
 export class Timer {
   intervalId: number = 0;
 
-  constructor(public store: GameStore) {}
+  constructor(public timer: TimerService) {}
 
   ngOnInit() {
-    this.intervalId = setInterval(() => {
-      this.store.updateTimer();
-
-      if (this.store.timer() <= 0) {
-        clearInterval(this.intervalId); // ferma il setInterval
-        this.store.setEndGame();
-      }
-    }, 1000);
+    this.timer.startTimer();
   }
 
   ngOnDestroy() {
