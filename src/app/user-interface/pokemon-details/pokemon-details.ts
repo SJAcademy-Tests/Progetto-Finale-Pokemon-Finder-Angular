@@ -4,11 +4,13 @@ import { PokemonType } from '../../../types/pokemon';
 import { CommonModule } from '@angular/common';
 import { ComponentSize } from '../../../service/component-size';
 import { GameStore } from '../../../service/game-store';
+import { CapitalizePipe } from "../../../utils/capitalize-pipe";
+
 
 @Component({
   selector: 'app-pokemon-details',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, CapitalizePipe],
   templateUrl: './pokemon-details.html',
   styleUrls: ['./pokemon-details.scss'],
 })
@@ -35,11 +37,6 @@ export class PokemonDetails implements AfterViewInit, OnDestroy {
   get pokemon(): PokemonType {
     return this.pokemonService.pokemonDetails();
   }
-
-  capitalize(name: string) {
-    return name.charAt(0).toUpperCase() + name.slice(1);
-  }
-
   getIta(obj: any) {
     const entry = obj.flavor_text_entries?.find((entry: any) => entry.language.name === 'it');
     return entry

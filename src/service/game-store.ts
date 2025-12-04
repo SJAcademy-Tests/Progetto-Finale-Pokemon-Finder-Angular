@@ -1,3 +1,4 @@
+import { capitalize } from '../utils/capitalize';
 import { Injectable, signal } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
@@ -10,8 +11,10 @@ export class GameStore {
   pokemonCounter = signal<number>(0);
   endGame = signal<boolean>(false);
 
-  setName(s: string) {
-    this.name.set(s);
+  setName(s: string | null) {
+    // evita errori se s è null o stringa vuota
+    const formatted = s ? capitalize(s) : null;
+    this.name.set(formatted);
   }
 
   setEndGame() {

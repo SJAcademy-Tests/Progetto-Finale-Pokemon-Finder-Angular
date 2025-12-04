@@ -2,6 +2,7 @@ import { Component, ElementRef, AfterViewInit, ViewChild } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ComponentSize } from '../../service/component-size';
 import { GameStore } from '../../service/game-store';
+import { CapitalizePipe } from "../../utils/capitalize-pipe";
 
 @Component({
   selector: 'app-nav-bar',
