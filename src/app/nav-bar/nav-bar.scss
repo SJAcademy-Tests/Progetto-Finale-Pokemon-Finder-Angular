@@ -1,15 +1,28 @@
 .nav {
+  position: relative;
   display: flex;
-  justify-content: center;
   align-items: center;
-  background: linear-gradient(to right, rgb(247, 77, 77) 0%, yellow);
+
+  background: linear-gradient(to right, rgb(247, 77, 77), yellow);
   font-weight: bold;
-  transition: all 0.3s ease;
-  gap: 24px;
   font-size: 24px;
-  font-family: 'Pokemon Solid', Arial, sans-serif; /* se vuoi font stile Pokémon */
+  font-family: 'Pokemon Solid', Arial, sans-serif;
   letter-spacing: 2.5px;
   height: 3rem;
+  padding: 0 1rem;
+
+  .left {
+    position: relative;
+    z-index: 2; // evita che sia coperto
+  }
+
+  .center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 1rem;
+  }
 
   a {
     text-decoration: none;

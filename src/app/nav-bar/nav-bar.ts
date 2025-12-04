@@ -16,7 +16,7 @@ export class NavBar implements AfterViewInit {
 
   constructor(
     private size: ComponentSize,
-    private store: GameStore
+    public store: GameStore
   ) {}
 
   ngAfterViewInit() {
