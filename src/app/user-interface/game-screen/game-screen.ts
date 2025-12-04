@@ -11,6 +11,7 @@ import {
 import { PokemonCell } from './pokemon-cell/pokemon-cell';
 import { ScreenService } from '../../../service/screen-service';
 import { GameStore } from '../../../service/game-store';
+import { TimerService } from '../../../service/timer-service';
 
 export type PokemonData = { id: number; posX: number; posY: number };
 
@@ -26,12 +27,17 @@ export class GameScreen implements OnInit {
   randomPokemonSignal = signal<PokemonData | null>(null);
   selectedPokemonFinalPos = signal<{ x: number; y: number } | null>(null);
   flashSignal = signal(false);
-  screenWidth = signal(0);
-  screenHeight = signal(0);
+
+  //screenWidth = signal(0);
+  //screenHeight = signal(0);
 
   @Output() randomPokemon = new EventEmitter<PokemonData>();
 
-  constructor(private store: GameStore, private screenService: ScreenService) {
+  constructor(
+    private store: GameStore,
+    private screenService: ScreenService,
+    public timer: TimerService
+  ) {
     effect(() => {
       const array = this.finalPokemonSetSignal();
       // aspetta che l'array sia popolato e che almeno una posizione sia stata calcolata
@@ -55,7 +61,6 @@ export class GameScreen implements OnInit {
         x: data.posX,
         y: data.posY + navbarHeight + detailsHeight,
       });
-      console.log('prova', this.selectedPokemonFinalPos());
     });
 
     /* screenService.screenSize$.subscribe(size => {
@@ -162,17 +167,17 @@ export class GameScreen implements OnInit {
       this.selectNewPokemonAfterFound(foundId ?? null);
       this.store.updateCounter();
     } else {
-      this.store.updateTimerOnError();
+      this.timer.updateTimerOnError();
     }
   }
 
   private selectNewPokemonAfterFound(foundId: number | null) {
-    const prevSignal = this.randomPokemonSignal()
+    const prevSignal = this.randomPokemonSignal();
     this.randomPokemonSignal.set(null);
     this.pickRandomPokemon(prevSignal);
   }
 
-  private pickRandomPokemon(current : any) {
+  private pickRandomPokemon(current: any) {
     const array = this.finalPokemonSetSignal();
     const positionsReady = array.length > 0 && array.some((p) => p.posX !== 0 || p.posY !== 0);
     if (!positionsReady) {
