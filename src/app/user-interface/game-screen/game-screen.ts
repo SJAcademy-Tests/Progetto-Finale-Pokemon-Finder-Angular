@@ -166,6 +166,7 @@ export class GameScreen implements OnInit {
       }, 240);
       this.selectNewPokemonAfterFound(foundId ?? null);
       this.store.updateCounter();
+      this.timer.updateTimerOnCorrect()
     } else {
       this.timer.updateTimerOnError();
     }

@@ -9,6 +9,12 @@
   text-align: center;
   border: 2px solid #fff; /* bordo bianco per effetto cartone */
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  .error{
+    color: red;
+  }
+  .correct{
+    color: rgb(51, 138, 34)
+  }
 }
 
 .pokemon-counter-card:hover {

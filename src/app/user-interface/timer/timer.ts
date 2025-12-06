@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { GameStore } from '../../../service/game-store';
 import { TimerService } from '../../../service/timer-service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-timer',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './timer.html',
   styleUrl: './timer.scss',
 })

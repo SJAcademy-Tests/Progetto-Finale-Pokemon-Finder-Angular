@@ -10,6 +10,8 @@ export class TimerService {
   constructor(public store: GameStore) {}
 
   timer = signal<number>(200);
+  error_timer = signal<boolean>(false);
+  correct_timer = signal<boolean>(false);
 
   startTimer() {
     // STOP vecchio timer prima di crearne uno nuovo
@@ -39,6 +41,18 @@ export class TimerService {
 
   updateTimerOnError() {
     this.timer.update((timer) => timer - 10);
+    this.error_timer.set(true)
+    setTimeout(()=>{
+      this.error_timer.set(false)
+    }, 140)
   }
+  updateTimerOnCorrect() {
+    this.timer.update((timer) => timer + 5);
+    this.correct_timer.set(true)
+    setTimeout(()=>{
+      this.correct_timer.set(false)
+    }, 140)
+  }
+
 }
 
