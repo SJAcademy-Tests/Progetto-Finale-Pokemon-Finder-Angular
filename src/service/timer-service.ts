@@ -9,7 +9,7 @@ export class TimerService {
 
   constructor(public store: GameStore) {}
 
-  timer = signal<number>(200);
+  timer = signal<number>(150);
   error_timer = signal<boolean>(false);
   correct_timer = signal<boolean>(false);
 

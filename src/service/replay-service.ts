@@ -10,7 +10,7 @@ export class ReplayService {
 
   replay(){
     this.timer.stopTimer();  
-    this.timer.timer.set(200);
+    this.timer.timer.set(150);
 
     this.store.endGame.set(false);
     this.store.pokemonCounter.set(0);
