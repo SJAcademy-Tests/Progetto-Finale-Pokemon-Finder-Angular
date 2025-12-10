@@ -13,6 +13,7 @@ export class PokemonService {
   }
 
   fetchPokemon(id: number) {
+    if(id == 0) return
     const pokemon$ = this.http.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
     const species$ = this.http.get(`https://pokeapi.co/api/v2/pokemon-species/${id}`);
 

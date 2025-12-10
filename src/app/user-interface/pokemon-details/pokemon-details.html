@@ -1,7 +1,22 @@
-<div #detailContainer class="card" style="width: 30rem;">
-  <h2 class="text-center card-text">{{ pokemon.name | capitalize }}</h2>
-  <img class="card-img-top pokemon-img " [src]="pokemon.sprites.front_default" [alt]="pokemon.name">
-  <div class="card-body">
-    <p class="card-text">Descrizione: {{ getIta(pokemon) }}.</p>
-  </div>
+<div #detailContainer class="card" style="width: 30rem">
+  @if(pokemon){
+    <h2 class="text-center card-text">{{ pokemon.name | capitalize }}</h2>
+
+    <img
+      class="card-img-top pokemon-img"
+      [src]="pokemon.sprites.front_default"
+      [alt]="pokemon.name"
+    />
+
+    <div class="card-body">
+      <p class="card-text">
+        Descrizione: {{ getIta(pokemon) }}.
+      </p>
+    </div>
+  }@else{
+    <div class="card-body text-center">
+      <p>Caricamento Pokémon...</p>
+    </div>
+  }
+
 </div>
