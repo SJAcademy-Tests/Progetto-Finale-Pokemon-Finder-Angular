@@ -9,7 +9,6 @@ import {
   QueryList,
 } from '@angular/core';
 import { PokemonCell } from './pokemon-cell/pokemon-cell';
-import { ScreenService } from '../../../service/screen-service';
 import { GameStore } from '../../../service/game-store';
 import { TimerService } from '../../../service/timer-service';
 
@@ -35,7 +34,6 @@ export class GameScreen implements OnInit {
 
   constructor(
     private store: GameStore,
-    private screenService: ScreenService,
     public timer: TimerService
   ) {
     effect(() => {
