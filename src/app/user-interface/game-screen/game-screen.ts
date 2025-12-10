@@ -11,8 +11,8 @@ import {
 import { PokemonCell } from './pokemon-cell/pokemon-cell';
 import { GameStore } from '../../../service/game-store';
 import { TimerService } from '../../../service/timer-service';
+import { type PokemonData } from '../../../types/pokemon';
 
-export type PokemonData = { id: number; posX: number; posY: number };
 
 @Component({
   selector: 'app-game-screen',

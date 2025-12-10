@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output, ElementRef, AfterViewInit } from '@angular/core';
-import { PokemonData } from '../game-screen';
+import { PokemonData } from '../../../../types/pokemon';
+
 
 @Component({
   selector: 'app-pokemon-cell',
