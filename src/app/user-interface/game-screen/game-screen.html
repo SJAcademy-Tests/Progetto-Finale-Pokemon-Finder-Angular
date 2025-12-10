@@ -4,7 +4,7 @@
   }
   
   <div class="pokemon-canva" [style.gridTemplateColumns]="'repeat(' + Colonne + ', 35px)'">
-    @for(p of finalPokemonSetSignal(); track p.id){
+    @for(p of pokeSet.finalPokemonSetSignal(); track p.id){
     <app-pokemon-cell
       #pokemonCell
       [pokemon]="p"

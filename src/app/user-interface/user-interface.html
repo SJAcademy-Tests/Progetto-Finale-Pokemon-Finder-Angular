@@ -1,26 +1,27 @@
 <div class="container">
-  @if(selectedPokemonId){
-  <app-pokemon-details
-    [id]="selectedPokemonId"
-    [posX]="selectedPokemonPosX"
-    [posY]="selectedPokemonPosY"
-  ></app-pokemon-details>
+
+  @if (pokeSet.pokemonId()) {
+    <app-pokemon-details
+      [id]="pokeSet.pokemonId()"
+      [posX]="selectedPokemonPosX"
+      [posY]="selectedPokemonPosY"
+    ></app-pokemon-details>
   }
 
-  @if(!store.endGame()){
-  <div class="game-container">
-    
-    <app-counter class="counter"></app-counter>
+  @if (!store.endGame()) {
+    <div class="game-container">
 
-    <app-game-screen
-      class="game-screen"
-      (randomPokemon)="onRandomPokemon($event)"
-    ></app-game-screen>
+      <app-counter class="counter"></app-counter>
 
-    <app-timer class="timer"></app-timer>
+      <app-game-screen
+        class="game-screen"
+        (randomPokemon)="onRandomPokemon($event)"
+      ></app-game-screen>
+
+      <app-timer class="timer"></app-timer>
     </div>
-    }@else {
-        <app-end-game-modal></app-end-game-modal>  
-    }
-  
+  } @else {
+      <app-end-game-modal></app-end-game-modal>
+  }
+
 </div>

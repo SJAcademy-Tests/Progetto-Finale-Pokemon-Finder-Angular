@@ -4,6 +4,7 @@ import { NavBar } from './nav-bar/nav-bar';
 import { Footer } from './footer/footer';
 import { GameStore } from '../service/game-store';
 import { NewPlayerModal } from './new-player-modal/new-player-modal';
+import { PokemonSet } from '../service/pokemon-set';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,8 @@ import { NewPlayerModal } from './new-player-modal/new-player-modal';
 })
 export class App {
   protected readonly title = signal('Progetto-Finale');
-  constructor(public store: GameStore){}
+constructor(public store: GameStore, public pokeSet: PokemonSet) {
+  this.pokeSet.initialize();
+}
 
 }

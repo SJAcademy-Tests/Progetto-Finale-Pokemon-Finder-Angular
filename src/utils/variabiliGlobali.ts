@@ -1,0 +1,1 @@
+export const PokemonDaTrovare = 200
