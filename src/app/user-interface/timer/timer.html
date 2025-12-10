@@ -1,3 +1,6 @@
 <div class="pokemon-counter-card">
-  <h5 class="card-title" [ngClass]="{'error': timer.error_timer(),'correct': timer.correct_timer()}">Tempo Rimanente {{timer.timer()}} </h5>
+  <h5 class="card-title" [ngClass]="{'error': timer.error_timer(),'correct': timer.correct_timer()}">Tempo Rimanente
+     @if(timer.timer() > 0){
+      {{timer.timer()}}
+     }@else{0} </h5>
 </div>
