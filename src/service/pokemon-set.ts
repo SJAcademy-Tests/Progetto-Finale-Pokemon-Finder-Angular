@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { PokemonData } from '../types/pokemon';
-import { PokemonDaTrovare } from '../utils/variabiliGlobali';
+import { PokemonDaTrovare, MaxPokemonID } from '../utils/variabiliGlobali';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +10,6 @@ export class PokemonSet {
   randomPokemonSignal = signal<PokemonData | null>(null);
   pokemonId = signal<number>(0)
 
-  MaxPokemonID = 1000;
   //Genera un array con il numero di pokemon selezionato
   private initialized = false;
 
@@ -21,8 +20,20 @@ export class PokemonSet {
     }
   }
 
+ reset() {
+  // Ricrea l'array
+  this.updatePokemonArray();
+
+  // Svuota il Pokémon selezionato
+  this.randomPokemonSignal.set(null);
+  this.pokemonId.set(0);
+
+  // Aspetta che le posizioni siano pronte (gestito dall'effect in GameScreen)
+  this.initialized = true;
+}
+
   updatePokemonArray() {
-    const allPokemonIds = Array.from({ length: this.MaxPokemonID }, (_, i) => i + 1);
+    const allPokemonIds = Array.from({ length: MaxPokemonID }, (_, i) => i + 1);
     const shuffled = allPokemonIds.sort(() => Math.random() - 0.5);
 
     const newArray: PokemonData[] = shuffled
