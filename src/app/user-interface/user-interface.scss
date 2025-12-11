@@ -5,24 +5,27 @@
   align-items: center;
   width: 100%;
 
-  .game-container {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around; // distribuisce i tre elementi
-    align-items: center;
+.game-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
 
-    .game-screen {     // larghezza fissa
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .counter{
-      position: relative;
-      right: 270px
-    }
-    .timer{
-      position: relative;
-      left: 200px
-    }
+  .counter,
+  .timer {
+    flex: 1;
+    display: flex;
   }
+
+  .counter {
+    justify-content: flex-start;
+  }
+
+  .timer {
+    justify-content: flex-end;
+  }
+
+  .game-screen {
+    flex: 0; // resta della sua dimensione
+  }
+}
 }
