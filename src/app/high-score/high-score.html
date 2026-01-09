@@ -2,7 +2,8 @@
   <h2>Classifica Allenatori di Pokémon</h2>
 
   <div class="leaderboard-list">
-    @if(leaderboard.length && loading == false){ @for(p of leaderboard; track p){
+    
+    @if(leaderboard.length){ @for(p of leaderboard; track p){
     <!-- Ciclo su una lista di giocatori -->
     <div class="leaderboard-card">
       <div class="player-info">
@@ -11,6 +12,7 @@
         <span class="player-score">{{ p.punteggio }} Pokémon</span>
       </div>
     </div>
-    }}@else{<span>LOADING...</span> }
+    }}@else{<span>LOADING...</span>}
+   
   </div>
 </div>
