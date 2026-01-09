@@ -1,8 +1,10 @@
+import { LeaderboardService } from './leaderboard-service';
 import { capitalize } from '../utils/capitalize';
 import { Injectable, signal } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class GameStore {
+  constructor(public leaderboardService: LeaderboardService) {}
   navbarHeight = signal<number>(0);
   detailsHeight = signal<number>(0);
 
@@ -20,21 +22,21 @@ export class GameStore {
   setEndGame() {
     this.endGame.set(true);
 
-    const leaderboard = JSON.parse(localStorage.getItem('leaderboard') || '{}');
+    if (!this.name()) return;
 
-    localStorage.setItem(
-      'leaderboard',
-      JSON.stringify(
-        [
-          ...(leaderboard.length ? leaderboard : []),
-          {
-            name: this.name(),
-            score: this.pokemonCounter(),
-            played_at: new Date(),
-          },
-        ].sort((a, b) => b.score - a.score)
-      )
-    );
+    const player = {
+      nome: this.name()!,
+      punteggio: this.pokemonCounter(),
+      curr_date: new Date().toISOString(),
+    };
+
+    // aggiungi giocatore al backend
+    this.leaderboardService.addPlayer(player.nome, player.punteggio, player.curr_date).subscribe({
+      next: () => {
+        console.log('Giocatore salvato sul backend!');
+      },
+      error: (err) => console.error('Errore salvataggio backend:', err),
+    });
   }
 
   updateCounter() {
@@ -48,6 +50,4 @@ export class GameStore {
   updateDetailsHeight(h: number) {
     this.detailsHeight.set(h);
   }
-
-
 }

@@ -41,18 +41,16 @@ export class TimerService {
 
   updateTimerOnError() {
     this.timer.update((timer) => timer - 10);
-    this.error_timer.set(true)
-    setTimeout(()=>{
-      this.error_timer.set(false)
-    }, 140)
+    this.error_timer.set(true);
+    setTimeout(() => {
+      this.error_timer.set(false);
+    }, 140);
   }
   updateTimerOnCorrect() {
     this.timer.update((timer) => timer + 5);
-    this.correct_timer.set(true)
-    setTimeout(()=>{
-      this.correct_timer.set(false)
-    }, 140)
+    this.correct_timer.set(true);
+    setTimeout(() => {
+      this.correct_timer.set(false);
+    }, 140);
   }
-
 }
-

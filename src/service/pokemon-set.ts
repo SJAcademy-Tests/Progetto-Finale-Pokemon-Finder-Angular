@@ -8,7 +8,7 @@ import { PokemonDaTrovare, MaxPokemonID } from '../utils/variabiliGlobali';
 export class PokemonSet {
   finalPokemonSetSignal = signal<PokemonData[]>([]);
   randomPokemonSignal = signal<PokemonData | null>(null);
-  pokemonId = signal<number>(0)
+  pokemonId = signal<number>(0);
 
   //Genera un array con il numero di pokemon selezionato
   private initialized = false;
@@ -20,17 +20,17 @@ export class PokemonSet {
     }
   }
 
- reset() {
-  // Ricrea l'array
-  this.updatePokemonArray();
+  reset() {
+    // Ricrea l'array
+    this.updatePokemonArray();
 
-  // Svuota il Pokémon selezionato
-  this.randomPokemonSignal.set(null);
-  this.pokemonId.set(0);
+    // Svuota il Pokémon selezionato
+    this.randomPokemonSignal.set(null);
+    this.pokemonId.set(0);
 
-  // Aspetta che le posizioni siano pronte (gestito dall'effect in GameScreen)
-  this.initialized = true;
-}
+    // Aspetta che le posizioni siano pronte (gestito dall'effect in GameScreen)
+    this.initialized = true;
+  }
 
   updatePokemonArray() {
     const allPokemonIds = Array.from({ length: MaxPokemonID }, (_, i) => i + 1);
@@ -66,7 +66,7 @@ export class PokemonSet {
     }
 
     const pokemon = array[randomIndex];
-    this.pokemonId.set(pokemon.id)
+    this.pokemonId.set(pokemon.id);
     this.randomPokemonSignal.set(pokemon);
   }
 

@@ -6,5 +6,4 @@ import { inject, Injectable } from '@angular/core';
 })
 export class ResponsiveDesign {
   breakpointObserver = inject(BreakpointObserver);
-  
 }

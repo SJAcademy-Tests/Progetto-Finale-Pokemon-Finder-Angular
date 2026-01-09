@@ -7,17 +7,16 @@ import { PokemonSet } from './pokemon-set';
   providedIn: 'root',
 })
 export class ReplayService {
-  constructor(public store: GameStore, public timer:TimerService, public pokeSet : PokemonSet){}
+  constructor(public store: GameStore, public timer: TimerService, public pokeSet: PokemonSet) {}
 
-  replay(){
+  replay() {
     this.pokeSet.reset();
-    this.timer.stopTimer();  
+    this.timer.stopTimer();
     this.timer.timer.set(150);
 
     this.store.endGame.set(false);
     this.store.pokemonCounter.set(0);
-    
-    this.timer.startTimer();
 
+    this.timer.startTimer();
   }
 }

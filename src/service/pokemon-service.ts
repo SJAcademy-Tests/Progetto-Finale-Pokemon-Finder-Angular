@@ -13,7 +13,7 @@ export class PokemonService {
   }
 
   fetchPokemon(id: number) {
-    if(id == 0) return
+    if (id == 0) return;
     const pokemon$ = this.http.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
     const species$ = this.http.get(`https://pokeapi.co/api/v2/pokemon-species/${id}`);
 
@@ -21,13 +21,13 @@ export class PokemonService {
       next: ([pokemon, species]) => {
         this.pokemonDetails.set({
           ...pokemon,
-          ...species
+          ...species,
         });
       },
       error: (err) => {
         console.error('Errore fetch Pokémon:', err);
         this.pokemonDetails.set(undefined);
-      }
+      },
     });
   }
 }

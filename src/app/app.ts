@@ -8,14 +8,13 @@ import { PokemonSet } from '../service/pokemon-set';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NavBar, Footer, NewPlayerModal ],
+  imports: [RouterOutlet, NavBar, Footer, NewPlayerModal],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
+  styleUrl: './app.scss',
 })
 export class App {
   protected readonly title = signal('Progetto-Finale');
-constructor(public store: GameStore, public pokeSet: PokemonSet) {
-  this.pokeSet.initialize();
-}
-
+  constructor(public store: GameStore, public pokeSet: PokemonSet) {
+    this.pokeSet.initialize();
+  }
 }

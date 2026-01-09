@@ -3,10 +3,9 @@ import { fromEvent, Observable } from 'rxjs';
 import { map, startWith, shareReplay } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ScreenService {
-
   screenSize$: Observable<{ width: number; height: number }>;
 
   constructor() {
@@ -14,7 +13,7 @@ export class ScreenService {
       startWith(null),
       map(() => ({
         width: window.innerWidth,
-        height: window.innerHeight
+        height: window.innerHeight,
       })),
       shareReplay(1)
     );
