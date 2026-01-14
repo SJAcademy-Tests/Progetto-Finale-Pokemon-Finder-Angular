@@ -17,11 +17,11 @@ export const appConfig: ApplicationConfig = {
 
       return {
         link: httpLink.create({
-          uri: `${environment.apiUrl}/graphql`,
+          uri: 'https://pokemonapp-backend-production-2e37.up.railway.app/graphql',
           headers: new HttpHeaders({
             Authorization: `Basic ${environment.graphqlBasicAuth}`
           }),
-          withCredentials: true, // necessario se il backend usa cors con credentials
+          withCredentials: true,
         }),
         cache: new InMemoryCache(),
       };
