@@ -5,6 +5,7 @@ import { provideApollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
 import { InMemoryCache } from '@apollo/client';
 import { routes } from './app.routes';
+import { environment } from '../environment/environment';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,14 +15,11 @@ export const appConfig: ApplicationConfig = {
     provideApollo(() => {
       const httpLink = inject(HttpLink);
 
-      // Inserisci qui le tue credenziali per la Basic Auth
-      const username = 'admin';
-      const password = 'supersecret';
-      const token = btoa(`${username}:${password}`); // Base64(username:password)
+      const token = btoa(`${environment.basicAuthUser}:${environment.basicAuthPass}`);
 
       return {
         link: httpLink.create({
-          uri: 'http://localhost:3306/graphql',
+          uri: 'http://localhost:4000/graphql',
           headers: new HttpHeaders({
             Authorization: `Basic ${token}`,
           }),
