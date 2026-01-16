@@ -14,12 +14,13 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     provideApollo(() => {
       const httpLink = inject(HttpLink);
-
+      //controllo
+      if(environment.url ) console.log("URL ATTUALMENTE IN USO: ",environment.url)
       const token = btoa(`${environment.basicAuthUser}:${environment.basicAuthPass}`);
-
+  
       return {
         link: httpLink.create({
-          uri: 'http://localhost:4000/graphql',
+          uri: `${environment.url}`,
           headers: new HttpHeaders({
             Authorization: `Basic ${token}`,
           }),
